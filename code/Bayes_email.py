@@ -3,9 +3,24 @@
 # @Author   : Alan Lau (rlalan@outlook.com)
 # @Language : Python3.5
 
-from fwalker import fun
-from reader import readtxt
+# from fwalker import fun
+# from reader import readtxt
 
+import os
+
+
+def readtxt(path,encoding):
+    with open(path, 'r', encoding = encoding) as f:
+        lines = f.readlines()
+    return lines
+
+def fileWalker(path):
+    fileArray = []
+    for root, dirs, files in os.walk(path):
+        for fn in files:
+            eachpath = str(root+'\\'+fn)
+            fileArray.append(eachpath)
+    return fileArray
 
 def email_parser(email_path):
     punctuations = """,.<>()*&^%$#@!'";~`[]{}|、\\/~+_-=?"""
@@ -23,7 +38,7 @@ def get_word(email_file):
     word_list = []
     word_set = []
     punctuations = """,.<>()*&^%$#@!'";~`[]{}|、\\/~+_-=?"""
-    email_paths = fun(email_file)
+    email_paths = fileWalker(email_file)
     for email_path in email_paths:
         # content_list = readtxt(email_path, 'utf8')
         # content = (' '.join(content_list)).replace(
