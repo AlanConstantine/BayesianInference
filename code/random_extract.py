@@ -3,17 +3,24 @@
 # @Author   : Alan Lau (rlalan@outlook.com)
 # @Language : Python3.5
 
-from fwalker import fun
+# from fwalker import fun
 import random
 from reader import writetxt, readtxt
 import shutil
 import os
 
+def fileWalker(path):
+    fileArray = []
+    for root, dirs, files in os.walk(path):
+        for fn in files:
+            eachpath = str(root+'\\'+fn)
+            fileArray.append(eachpath)
+    return fileArray
 
 def main():
     filepath = r'..\email'
     testpath = r'..\test'
-    files = fun(filepath)
+    files = fileWalker(filepath)
     random.shuffle(files)
     top10 = files[:10]
     for ech in top10:
